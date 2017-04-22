@@ -29,7 +29,7 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
 
 #Intializing the variables
-init = tf.global_variables_intializer()
+init = tf.global_variables_initializer()
 
 #Launch the graph
 with tf.Session() as sess:
@@ -56,5 +56,11 @@ with tf.Session() as sess:
 
 
 	print("Optimization Finished!")
+
+	#Test Model
+	correct_prediction = tf.equal(tf.argmax(pred , 1), tf.argmax(y ,1))
+	#Calculate accuracy
+	accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+	print("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
 
 	
